@@ -9,7 +9,7 @@
 #define __PCA9685___
 
 #include "Arduino.h"
-#include <Wire/Wire.h>
+#include <Wire.h>
 
 #define PCA9685_MODE1 0x00
 #define PCA9685_MODE2 0x01
@@ -81,7 +81,7 @@ class PCA9685
 {
 public:
   PCA9685(uint8_t address);
-  void begin();
+  void begin(int sda=-1, int scl=-1, uint32_t frequency=400000);
   void restart();
   void setInvertedLogicMode();
   void setNormalLogicMode();

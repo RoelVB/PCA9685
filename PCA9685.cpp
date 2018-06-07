@@ -11,9 +11,9 @@ PCA9685::PCA9685(uint8_t address)
 /**
 * I2C.begin for I2C.
 */
-void PCA9685::begin()
+void PCA9685::begin(int sdaPin, int sclPin, uint32_t frequency)
 {
-  Wire.begin();
+  Wire.begin(sdaPin, sclPin, frequency);
   restart();
 }
 
@@ -146,9 +146,10 @@ uint16_t PCA9685::getFrequency()
   if (Wire.available())
   {
     prescale = Wire.read();
+    return round((float)25000000 / (float)(((long)prescale + 1) * (long)4096));
   }
-
-  return round((float)25000000 / (float)(((long)prescale + 1) * (long)4096));
+  else
+	  return 0;
 }
 
 /**
